@@ -39,7 +39,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         itemList.add("Zanahorias");
         itemList.add("Copas Danone");
 
-        adapter = new ArrayAdapter<String>(
+        adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 itemList
@@ -76,10 +76,8 @@ public class ShoppingListActivity extends AppCompatActivity {
     private void maybeRemoveItem(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.confirm);
-        builder.setMessage(String.format(
-                "Are you sure you want to remove '%s'?",
-                itemList.get(position))
-        );
+        String fmt = getResources().getString(R.string.confirm_message);
+        builder.setMessage(String.format(fmt, itemList.get(position)));
         builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -89,7 +87,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.create().show();
-
 
     }
 
