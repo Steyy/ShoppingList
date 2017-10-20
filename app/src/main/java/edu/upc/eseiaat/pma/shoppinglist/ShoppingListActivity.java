@@ -2,11 +2,13 @@ package edu.upc.eseiaat.pma.shoppinglist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -47,6 +49,14 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
 
+        edit_item.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                addItem();
+                return true;
+            }
+        });
+
         list.setAdapter(adapter);
 
     }
@@ -56,6 +66,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         if (item_text.isEmpty()) {
             itemList.add(item_text);
             adapter.notifyDataSetChanged(); //Añadir item a la lista
+            edit_item.setText(""); //Borro el item una vez lo añado
+
 
         }
 
