@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,14 +48,14 @@ public class ShoppingListActivity extends AppCompatActivity {
         //listener de cuando clican el botón
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 addItem();
             }
         });
 
         edit_item.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public boolean onEditorAction(TextView v, int i, KeyEvent keyEvent) {
                 addItem();
                 return true;
             }
@@ -80,7 +81,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         builder.setMessage(String.format(fmt, itemList.get(position)));
         builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialogIntrface, int i) {
                 itemList.remove(position);
                 adapter.notifyDataSetChanged();
             }
@@ -91,13 +92,12 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void addItem() {
+        Log.i("shoppinglist", "addItem");
         String item_text = edit_item.getText().toString();
-        if (item_text.isEmpty()) {
+        if (!item_text.isEmpty()) {
             itemList.add(item_text);
             adapter.notifyDataSetChanged(); //Añadir item a la lista
             edit_item.setText(""); //Borro el item una vez lo añado
-
-
         }
 
     }
